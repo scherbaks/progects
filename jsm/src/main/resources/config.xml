@@ -1,0 +1,41 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="jnditemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">org.jboss.naming.remote.client.InitialContextFactory</prop>
+                <prop key="java.naming.provider.url">remote://127.0.0.1:8081</prop>
+                <prop key="java.naming.security.principal">apuser</prop>
+                <prop key="java.naming.security.credentials">apuser</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="factory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate" ref="jnditemplate"/>
+        <property name="jndiName" value="jms/RemoteConnectionFactory"/>
+    </bean>
+    <bean id="destination" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate" ref="jnditemplate"/>
+        <property name="jndiName" value="jms/queue/test"/>
+    </bean>
+    <bean id="credentialsconnectionfactory"
+          class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">
+        <property name="targetConnectionFactory" value="jms/RemoteConnectionFactory"/>
+        <property name="username" value="apuser"/>
+        <property name="password" value="apuser"/>
+    </bean>
+    <bean id="jmstemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="credentialsconnectionfactory"/>
+        <property name="defaultDestination" value="jms/queue/test"/>
+    </bean>
+  <!--  <bean id="listener" class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+        <property name="connectionFactory" ref="credentialsconnectionfactory"/>
+        <property name="destination" ref="destination"/>
+        <property name="messageListener" ref="receiver"/>
+    </bean> -->
+    <bean id="send" class="model.logic.JMSSender">
+        <property name="jmsTemplate" ref="jmstemplate"/>
+    </bean>
+    <bean id="receiver" class="model.logic.JMSReceiver"/>
+</beans>

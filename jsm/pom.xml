@@ -10,15 +10,12 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-jms-client-bom -->
         <dependency>
-            <groupId>org.wildfly.bom</groupId>
-            <artifactId>jms-client-bom</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-jms-client-bom</artifactId>
+            <version>12.0.0.Final</version>
             <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>javax.jms-api</artifactId>
-            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -26,6 +23,13 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jboss.xnio/xnio-nio -->
+        <dependency>
+            <groupId>org.jboss.xnio</groupId>
+            <artifactId>xnio-nio</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
@@ -34,7 +38,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>3.0.2.RELEASE</version>
+            <version>5.0.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

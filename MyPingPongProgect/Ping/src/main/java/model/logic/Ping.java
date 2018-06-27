@@ -10,14 +10,12 @@ public class Ping {
     public static  void  main(String[] args){
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:config.xml");
-        JMSSender sender = (JMSSender) ctx.getBean("sendtopic");
-        JmsTemplate jmsTemplate = (JmsTemplate) ctx.getBean("jmstemplatetopic");
-        sender.setJmsTemplate(jmsTemplate);
+        JMSSender sender = (JMSSender) ctx.getBean("sendqueue");
 
         do {
             try {
                 sender.sendMessage();
-                Thread.sleep(5000);
+                Thread.sleep(10000);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -31,7 +31,7 @@ public class JMSSender {
                 Random rnd = new Random(System.currentTimeMillis());
                 int number = 1 + rnd.nextInt(10 - 1 + 1);
 
-                System.out.println("The Ping sending message in topic:  " + date + " \"My value is: " + number + "\"");
+                System.out.println("The Ping sending message in queue2:  " + date + " \"My value is: " + number + "\"");
                 return session.createObjectMessage(new MyMessage(number,date));
             }
         });

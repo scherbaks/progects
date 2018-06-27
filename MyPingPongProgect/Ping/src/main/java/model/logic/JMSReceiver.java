@@ -12,7 +12,7 @@ public class JMSReceiver implements MessageListener, Serializable {
         ObjectMessage my_message = (ObjectMessage)message;
 
         try {
-            message.acknowledge();
+            my_message.acknowledge();
             MyMessage recievermessage = (MyMessage)my_message.getObject();
             System.out.println("The Ping following message in queue: " + recievermessage.getDate() + " \"Your value is: " + recievermessage.getValue() + "\"\n\"Ping-Pong complite\"");
 

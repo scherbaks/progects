@@ -18,11 +18,11 @@
 
     <bean id="destinationtopic" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiTemplate" ref="jnditemplate"/>
-        <property name="jndiName" value="jms/queue/test"/>
+        <property name="jndiName" value="jms/topic/test"/>
     </bean>
     <bean id="destinationqueue" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiTemplate" ref="jnditemplate"/>
-        <property name="jndiName" value="jms/queue2/test"/>
+        <property name="jndiName" value="jms/queue/test"/>
     </bean>
     <bean id="credentialconnectionfactory"
           class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">
@@ -41,7 +41,7 @@
     </bean>
     <bean id="listenerqueue" class="org.springframework.jms.listener.SimpleMessageListenerContainer">
         <property name="connectionFactory" ref="credentialconnectionfactory"/>
-        <property name="destination" ref="destinationtopic"/>
+        <property name="destination" ref="destinationqueue"/>
         <property name="messageListener" ref="receiver"/>
     </bean>
 

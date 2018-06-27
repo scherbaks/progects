@@ -18,7 +18,7 @@
 
     <bean id="destinationtopic" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiTemplate" ref="jnditemplate"/>
-        <property name="jndiName" value="jms/queue2/test"/>
+        <property name="jndiName" value="jms/topic/test"/>
     </bean>
     <bean id="destinationqueue" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiTemplate" ref="jnditemplate"/>
@@ -56,7 +56,7 @@
           class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="credentialconnectionfactory"/>
         <property name="concurrentConsumers" value="1" />
-        <property name="destinationName" value="jms/queue2/test"/>
+        <property name="destinationName" value="jms/topic/test"/>
         <property name="messageListener" ref="receiver" />
     </bean>
 </beans>

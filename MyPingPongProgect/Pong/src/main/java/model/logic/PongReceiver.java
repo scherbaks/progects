@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jms.core.JmsTemplate;
 
 import javax.annotation.Resource;
 import javax.jms.*;
@@ -12,22 +13,27 @@ import java.io.Serializable;
 
 public class PongReceiver implements MessageListener, Serializable {
 
-    @Autowired
-   // @Qualifier("senqueue")//
-   // @Resource(name = "sendqueue")
-    PongSender sender;
+     //  @Autowired
+     //  @Qualifier("senqueue")
+     //  @Resource(name = "sendqueue")
+
+    private PongSender sender = new PongSender();
+
+    public void setSender(PongSender sender) {
+        this.sender = sender;
+    }
+    public PongSender getSender() {
+        return sender;
+    }
 
     public void onMessage(Message message) {
-        Thread receiver = Thread.currentThread();
         ObjectMessage my_message = (ObjectMessage)message;
-        System.out.println("Thread.getIdup=" + receiver.getId());
         try{
-            System.out.println("Thread.getIdtry=" + receiver.getId());
+
             MyMessage recievemessage = (MyMessage) my_message.getObject();
             System.out.println("The Pong following message in topic: " + recievemessage.getDate() + " \"Your value is: " + recievemessage.getValue() + "\"");
-            System.out.println("Thread.getId=" + receiver.getId());
 
-            sender.sendMessage();
+            getSender().sendMessage();
 
 //          Thread.sleep(1000000000);
         } catch (JMSException e) {

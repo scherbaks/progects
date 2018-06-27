@@ -47,7 +47,7 @@
         <property name="messageListener" ref="receiver"/>
     </bean>
 
-    <bean id="sendqueue" class="model.logic.PongSender">
+    <bean id="send" class="model.logic.PongSender">
         <property name="jmsTemplate" ref="jmstemplatequeue"/>
     </bean>
 
@@ -58,5 +58,8 @@
         <property name="concurrentConsumers" value="1" />
         <property name="destinationName" value="jms/topic/test"/>
         <property name="messageListener" ref="receiver" />
+    </bean>
+    <bean id="sender" class="model.logic.PongReceiver">
+        <property name="sender" ref="send"/>
     </bean>
 </beans>

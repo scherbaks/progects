@@ -17,13 +17,9 @@ public class PongReceiver implements MessageListener, Serializable {
      //  @Qualifier("senqueue")
      //  @Resource(name = "sendqueue")
 
-    private PongSender sender = new PongSender();
-
+    PongSender sender;
     public void setSender(PongSender sender) {
         this.sender = sender;
-    }
-    public PongSender getSender() {
-        return sender;
     }
 
     public void onMessage(Message message) {
@@ -33,7 +29,7 @@ public class PongReceiver implements MessageListener, Serializable {
             MyMessage recievemessage = (MyMessage) my_message.getObject();
             System.out.println("The Pong following message in topic: " + recievemessage.getDate() + " \"Your value is: " + recievemessage.getValue() + "\"");
 
-            getSender().sendMessage();
+            sender.sendMessage();
 
 //          Thread.sleep(1000000000);
         } catch (JMSException e) {
@@ -42,5 +38,7 @@ public class PongReceiver implements MessageListener, Serializable {
             e.printStackTrace();
         }*/
     }
+
+
 }
 
